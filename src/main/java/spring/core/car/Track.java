@@ -42,7 +42,6 @@ public class Track {
         final ExecutorService ex = Executors.newFixedThreadPool(2);
 
         try {
-//            final String firstCarOnFinish = ex.invokeAny(Arrays.asList(slowCarTask, fastCarTask));
             final String firstCarOnFinish = ex.invokeAny(Arrays.asList(fastCarTask, slowCarTask));
             System.out.println("### Winner is: " + firstCarOnFinish);
         } catch (InterruptedException | ExecutionException e) {
