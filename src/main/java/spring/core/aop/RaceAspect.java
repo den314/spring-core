@@ -14,7 +14,7 @@ public class RaceAspect {
     private void onEachCarRace(){}
 
     @Around("onEachCarRace()")
-    public String doS(ProceedingJoinPoint pjp) throws Throwable {
+    public String measureRaceTime(ProceedingJoinPoint pjp) throws Throwable {
 
         final long start = System.currentTimeMillis(); // @Before
         final String carName = (String) pjp.proceed();
