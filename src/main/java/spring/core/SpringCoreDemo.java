@@ -23,6 +23,8 @@ public class SpringCoreDemo {
         System.out.println("Is slowCar singleton? " + ctx.isSingleton("slowCar") + "\n");
 
         tryGetScopedBeansDemo(ctx);
+
+        ctx.close(); // so ApplicationClosedEvent will be processed
     }
 
     private static void tryGetScopedBeansDemo(AnnotationConfigApplicationContext ctx) {
