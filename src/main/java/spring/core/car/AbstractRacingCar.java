@@ -1,11 +1,12 @@
 package spring.core.car;
 
 import lombok.Data;
+import org.springframework.beans.factory.InitializingBean;
 
 import java.util.stream.LongStream;
 
 @Data
-public abstract class AbstractRacingCar {
+public abstract class AbstractRacingCar implements InitializingBean {
 
     String mark;
     String model;
@@ -37,4 +38,9 @@ public abstract class AbstractRacingCar {
     }
 
     protected abstract String getRacingName();
+
+    @Override
+    public void afterPropertiesSet() throws Exception {
+        this.horsePower = 0; // to show IncreaseCarHpBeanPostProcessor in action
+    }
 }

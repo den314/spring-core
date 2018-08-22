@@ -39,7 +39,7 @@ public class SpringCoreDemo {
 
         // would be fine for Prototype scoped bean
         System.out.println("Trying same with Prototype scoped bean.");
-        final AbstractRacingCar fastCarBean = ctx.getBean(FastCar.class, mark, model, hp);
+        final AbstractRacingCar fastCarBean = ctx.getBean(FastCar.class, mark, model, hp); /* hp = 0 see AbstractRacingCar */
         System.out.println("Bean returned: " + fastCarBean);
     }
 }
