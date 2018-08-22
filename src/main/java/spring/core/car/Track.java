@@ -1,6 +1,9 @@
 package spring.core.car;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Required;
 import org.springframework.stereotype.Component;
+import spring.core.util.BannerUtil;
 
 import javax.annotation.PostConstruct;
 import javax.inject.Inject;
@@ -17,6 +20,8 @@ public class Track {
     private FastCar fastCar;
     private SlowCar slowCar;
 
+    private BannerUtil bannerUtil;
+
     /* Implicit @Autowired - inject the fastCar with default constructor arguments */
     /* Can make use of JSR-330 annotations instead Spring related (@Autowired) */
     @Inject
@@ -27,12 +32,15 @@ public class Track {
 
     @PostConstruct // JSR-250 annotation
     public void init() {
-        System.out.println("---------------- RACE ----------------");
         System.out.println("Two cars are waiting on the track:");
         System.out.println("first: " + fastCar);
         System.out.println("second: " + slowCar);
         race();
-        System.out.println("------------ END OF RACE -------------");
+
+        // if bean wiring is optional, developer must take care about NPE
+        if (bannerUtil != null) {
+            bannerUtil.printFinish();
+        }
     }
 
     private void race() {
@@ -56,9 +64,14 @@ public class Track {
         try {
             ex.awaitTermination(30, TimeUnit.SECONDS);
         } catch (InterruptedException e) {
-            e.printStackTrace();
+            Thread.currentThread().interrupt();
         }
     }
 
-
+    // optional dependency, if proper profile is active, will be wired
+    // see BannerUtil @Profile annotation
+    @Autowired(required = false)
+    public void setBannerUtil(BannerUtil bannerUtil) {
+        this.bannerUtil = bannerUtil;
+    }
 }

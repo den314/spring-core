@@ -20,7 +20,7 @@ public class RaceAspect {
         final String carName = (String) pjp.proceed();
         final long stop = System.currentTimeMillis();  // @After
 
-        System.out.printf("--- %s finished race with time: %s%n", carName, (stop - start));
+        System.out.printf("--- %s finished race with time: %s (from AOP)%n", carName, (stop - start));
         return carName; // must be returned, otherwise value will be lost
     }
 }
